@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from data import users_settings_dict, direct_users_list
+from data import username, password
 import time
 import random
 from selenium.common.exceptions import NoSuchElementException
@@ -21,7 +21,7 @@ class InstagramBot():
         # options.add_argument(f"--window-size={window_size}")
         # options.add_argument("--headless")
         # self.browser = webdriver.Chrome("../chromedriver/chromedriver", options=options)
-        self.browser = webdriver.Chrome("../chromedriver/chromedriver")
+        self.browser = webdriver.Chrome("chromedriver/chromedriver.exe")
 
     # метод для закрытия браузера
     def close_browser(self):
@@ -651,21 +651,10 @@ class InstagramBot():
         self.close_browser()
 
 
-for user, user_data in users_settings_dict.items():
-    username = user_data['login']
-    password = user_data['password']
-    # window_size = user_data['window_size']
 
-    my_bot = InstagramBot(username, password)
-    my_bot.login()
-    # my_bot.close_browser()
-    # my_bot.send_direct_message(direct_users_list, "Hey! How's it going?", "/home/cain/PycharmProjects/instagram_bot/lesson_6/img1.jpg")
-    # my_bot.get_all_followers('username')
-    my_bot.smart_unsubscribe("username")
-
-# my_bot = InstagramBot(username, password)
-# my_bot.login()
+my_bot = InstagramBot(username, password)
+my_bot.login()
 # my_bot.send_direct_message(direct_users_list, "Hey! How's it going?", "/home/cain/PycharmProjects/instagram_bot/lesson_6/img1.jpg")
-# my_bot.get_all_followers('https://www.instagram.com/username/')
-# my_bot.download_userpage_content("https://www.instagram.com/username/")
+my_bot.get_all_followers('https://www.instagram.com/prohbk/')
+my_bot.download_userpage_content("https://www.instagram.com/prohbk/")
 
