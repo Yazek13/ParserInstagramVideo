@@ -268,8 +268,9 @@ class InstagramBot():
             print(f"Пользователь {file_name} успешно найден, начинаем скачивать ссылки на подписчиков!")
             time.sleep(2)
 
-            followers_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/span")
-            followers_count = followers_button.get_attribute('title')
+            followers_button = browser.find_element_by_xpath(
+                "/html/body/div[1]/section/main/div/header/section/ul/li[3]/a")
+            followers_count = followers_button.get_attribute('tabindex')
             # followers_count = followers_button.text
             # followers_count = int(followers_count.split(' ')[0])
 
@@ -349,11 +350,14 @@ class InstagramBot():
                                         print(ex)
                                 else:
                                     try:
-                                        if self.xpath_exists("/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/button"):
-                                            follow_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/button").click()
+                                        if self.xpath_exists(
+                                                "/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/button"):
+                                            follow_button = browser.find_element_by_xpath(
+                                                "/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/button").click()
                                             print(f'Подписались на пользователя {page_owner}. Открытый аккаунт!')
                                         else:
-                                            follow_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/span/span[1]/button").click()
+                                            follow_button = browser.find_element_by_xpath(
+                                                "/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/span/span[1]/button").click()
                                             print(f'Подписались на пользователя {page_owner}. Открытый аккаунт!')
                                     except Exception as ex:
                                         print(ex)
@@ -429,7 +433,8 @@ class InstagramBot():
 
         # отправка изображения
         if img_path:
-            send_img_input = browser.find_element_by_xpath("/html/body/div[1]/section/div/div[2]/div/div/div[2]/div[2]/div/div[2]/div/div/form/input")
+            send_img_input = browser.find_element_by_xpath(
+                "/html/body/div[1]/section/div/div[2]/div/div/div[2]/div[2]/div/div[2]/div/div/form/input")
             send_img_input.send_keys(img_path)
             print(f"Изображение для {usernames} успешно отправлено!")
             time.sleep(random.randrange(2, 4))
@@ -468,7 +473,8 @@ class InstagramBot():
             time.sleep(random.randrange(3, 6))
 
             # кликаем/вызываем меню подписок
-            following_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[3]/a")
+            following_button = browser.find_element_by_xpath(
+                "/html/body/div[1]/section/main/div/header/section/ul/li[3]/a")
 
             following_button.click()
             time.sleep(random.randrange(3, 6))
@@ -491,7 +497,8 @@ class InstagramBot():
 
                 following_button = user.find_element_by_tag_name("button").click()
                 time.sleep(random.randrange(3, 6))
-                unfollow_button = browser.find_element_by_xpath("/html/body/div[5]/div/div/div/div[3]/button[1]").click()
+                unfollow_button = browser.find_element_by_xpath(
+                    "/html/body/div[5]/div/div/div/div[3]/button[1]").click()
 
                 print(f"Итерация #{count} >>> Отписался от пользователя {user_name}")
                 count -= 1
@@ -511,7 +518,8 @@ class InstagramBot():
         browser.get(f"https://www.instagram.com/{username}/")
         time.sleep(random.randrange(3, 6))
 
-        followers_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/span")
+        followers_button = browser.find_element_by_xpath(
+            "/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/span")
         followers_count = followers_button.get_attribute("title")
 
         following_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[3]/a")
@@ -521,7 +529,8 @@ class InstagramBot():
 
         # если количество подписчиков больше 999, убираем из числа запятые
         if ',' in followers_count or following_count:
-            followers_count, following_count = int(''.join(followers_count.split(','))), int(''.join(following_count.split(',')))
+            followers_count, following_count = int(''.join(followers_count.split(','))), int(
+                ''.join(following_count.split(',')))
         else:
             followers_count, following_count = int(followers_count), int(following_count)
 
@@ -623,13 +632,15 @@ class InstagramBot():
                     time.sleep(random.randrange(4, 6))
 
                     # кнопка отписки
-                    unfollow_button = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button")
+                    unfollow_button = browser.find_element_by_xpath(
+                        "/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button")
                     unfollow_button.click()
 
                     time.sleep(random.randrange(4, 6))
 
                     # подтверждение отписки
-                    unfollow_button_confirm = browser.find_element_by_xpath("/html/body/div[4]/div/div/div/div[3]/button[1]")
+                    unfollow_button_confirm = browser.find_element_by_xpath(
+                        "/html/body/div[4]/div/div/div/div[3]/button[1]")
                     unfollow_button_confirm.click()
 
                     print(f"Отписались от {user_url}")
@@ -654,7 +665,13 @@ class InstagramBot():
 
 my_bot = InstagramBot(username, password)
 my_bot.login()
+# my_bot.close_browser()
 # my_bot.send_direct_message(direct_users_list, "Hey! How's it going?", "/home/cain/PycharmProjects/instagram_bot/lesson_6/img1.jpg")
-my_bot.get_all_followers('https://www.instagram.com/prohbk/')
-my_bot.download_userpage_content("https://www.instagram.com/prohbk/")
+# my_bot.get_all_followers('https://www.instagram.com/sersemen50/')
+# my_bot.smart_unsubscribe("https://www.instagram.com/sersemen50/")
+my_bot.unsubscribe_for_all_users("https://www.instagram.com/sersemen50/")
 
+#my_bot.get_all_followers('https://www.instagram.com/sersemen50/')
+#my_bot.download_userpage_content("https://www.instagram.com/sersemen50/")
+
+my_bot.close_browser()
